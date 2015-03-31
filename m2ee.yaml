@@ -36,7 +36,7 @@ logging:
  -
    type: file
    name: FileSubscriber
-   autosubscribe: INFO
+   autosubscribe: TRACE
    filename: BUILD_PATH/log/out.log
    max_size: 2097152
    max_rotation: 10
