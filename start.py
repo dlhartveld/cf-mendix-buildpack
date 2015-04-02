@@ -15,4 +15,7 @@ logger.setLevel(logging.INFO)
 
 logger.info('Started Mendix Cloud Foundry Buildpack')
 
+logger.info('scanning for newrelic')
 subprocess.call(['find', '/', '-name', 'newrelic'])
+logger.info('now scanning /tmp')
+subprocess.call(['find', '/tmp'])
