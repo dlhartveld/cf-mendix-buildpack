@@ -184,6 +184,8 @@ def download_mendix_version():
 
 
 def copy_buildpack_resources():
+    mkdir_p(DOT_LOCAL_LOCATION)
+    mkdir_p(BUILD_DIR)
     shutil.copy(
         os.path.join(BUILDPACK_DIR, 'm2ee.yaml'),
         os.path.join(DOT_LOCAL_LOCATION, 'm2ee.yaml'),
