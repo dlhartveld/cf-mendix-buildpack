@@ -24,6 +24,7 @@ import buildpackutil
 import requests
 
 logging.getLogger("requests").setLevel(logging.WARNING)
+subprocess.call(['find', '/', '-name', 'newrelic'])
 
 
 def download(url, destination):
