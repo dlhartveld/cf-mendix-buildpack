@@ -17,14 +17,19 @@ logger.info('Started Mendix Cloud Foundry Buildpack')
 
 
 def pre_process_m2ee_yaml():
-    runtime_port = int(os.environ['PORT'])
+    external_port = int(os.environ['PORT'])
+    runtime_port = external_port + 1
+    admin_port = runtime_port + 1
 
     subprocess.check_call([
         'sed',
         '-i',
-        's|BUILD_PATH|%s|g; s|RUNTIME_PORT|%d|; s|ADMIN_PORT|%d|'
-        % (os.getcwd(), runtime_port, runtime_port + 1),
-        '.local/m2ee.yaml'
+        's|BUILD_PATH|%s|g; '
+        's|EXTERNAL_PORT|%d|; '
+        's|RUNTIME_PORT|%d|; '
+        's|ADMIN_PORT|%d|'
+        % (os.getcwd(), external_port, runtime_port, admin_port),
+        '.local/m2ee.yaml', 'nginx.conf',
     ])
 
 
@@ -340,6 +345,17 @@ if __name__ == '__main__':
     pre_process_m2ee_yaml()
     activate_license()
     set_up_logging_file()
+    subprocess.check_call(['mkdir', '-p', '.local/logs'])
+    subprocess.check_call(['touch', '.local/logs/access.log'])
+    subprocess.check_call(['touch', '.local/logs/error.log'])
+    subprocess.check_call([
+        '.local/sbin/nginx',
+        '-p', os.path.join(os.getcwd(), '.local'),
+        '-c', 'nginx.conf',
+    ], env={
+        'LD_LIBRARY_PATH': os.path.join(os.getcwd(), '.local', 'lib'),
+    })
+
     m2ee = set_up_m2ee_client(get_vcap_data())
 
     def sigterm_handler(_signo, _stack_frame):
