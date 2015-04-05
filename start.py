@@ -346,14 +346,12 @@ if __name__ == '__main__':
     activate_license()
     set_up_logging_file()
     subprocess.check_call(['mkdir', '-p', '.local/logs'])
+    subprocess.check_call(['mkdir', '-p', 'model-access'])
+    subprocess.check_call(['ln', '-s', '../model', 'model-access/model'])
+    subprocess.check_call(['ln', '-s', '../web', 'model-access/web'])
     subprocess.check_call(['touch', '.local/logs/access.log'])
     subprocess.check_call(['touch', '.local/logs/error.log'])
-    subprocess.call([
-        'ldd',
-        '.local/sbin/nginx',
-    ], env={
-        'LD_LIBRARY_PATH': os.path.join(os.getcwd(), '.local', 'lib'),
-    })
+
     subprocess.check_call([
         '.local/sbin/nginx',
         '-p', os.path.join(os.getcwd(), '.local'),
@@ -361,10 +359,6 @@ if __name__ == '__main__':
     ], env={
         'LD_LIBRARY_PATH': os.path.join(os.getcwd(), '.local', 'lib'),
     })
-    subprocess.call([
-        'ps', 'afux',
-    ])
-
     m2ee = set_up_m2ee_client(get_vcap_data())
 
     def sigterm_handler(_signo, _stack_frame):
