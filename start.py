@@ -358,8 +358,6 @@ if __name__ == '__main__':
     subprocess.check_call(['ln', '-s', '../web', 'model-access/web'])
     subprocess.check_call(['touch', '.local/logs/access.log'])
     subprocess.check_call(['touch', '.local/logs/error.log'])
-    with open('.local/htpasswd', 'w') as htpasswd:
-        htpasswd.write('modeler:$apr1$Or9ix6jG$taQQ.D.HCZ3MD81vF/3Bb.\n')
 
     subprocess.check_call([
         '.local/sbin/nginx',

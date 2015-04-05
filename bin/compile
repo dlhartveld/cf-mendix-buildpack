@@ -149,7 +149,18 @@ def set_up_java_sdk():
 
 def set_up_nginx():
     logging.info('unpacking nginx')
-    subprocess.call(['which', 'openssl'])
+    process = subprocess.Popen([
+        'openssl',
+        'lssswd',
+        '-apr1',
+        os.getenv('LIVE_UPDATE_PASSWORD'),
+    ], stdout=subprocess.PIPE)
+    out, err = process.communicate()
+    hashed = out.strip()
+    with open(os.path.join(DOT_LOCAL_LOCATION, 'htpasswd'), 'w') as htpasswd:
+        htpasswd.write('modeler:%s\n' % hashed)
+    logging.info('resulting hash: %s' % hashed)
+
     subprocess.check_call([
         'tar',
         'zxf',
