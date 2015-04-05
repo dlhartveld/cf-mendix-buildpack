@@ -151,7 +151,7 @@ def set_up_nginx():
     logging.info('unpacking nginx')
     process = subprocess.Popen([
         'openssl',
-        'lssswd',
+        'passwd',
         '-apr1',
         os.getenv('LIVE_UPDATE_PASSWORD'),
     ], stdout=subprocess.PIPE)
