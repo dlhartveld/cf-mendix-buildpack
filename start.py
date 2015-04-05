@@ -336,7 +336,13 @@ def display_running_version(m2ee):
 
 def loop_until_process_dies(m2ee):
     while m2ee.runner.check_pid():
-        time.sleep(10)
+        if os.path.isfile('model-access/restart'):
+            logger.info('going to restart!')
+            if not m2ee.stop():
+                m2ee.terminate()
+            start_app(m2ee)
+        else:
+            time.sleep(10)
     logger.info('process died, stopping')
     sys.exit(1)
 
