@@ -341,6 +341,7 @@ def loop_until_process_dies(m2ee):
             if not m2ee.stop():
                 m2ee.terminate()
             start_app(m2ee)
+            os.unlink('model-access/restart')
         else:
             time.sleep(10)
     logger.info('process died, stopping')
