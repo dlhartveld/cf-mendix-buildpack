@@ -356,7 +356,7 @@ if __name__ == '__main__':
     })
     subprocess.check_call([
         '.local/sbin/nginx',
-        '-h',
+        '-c', os.path.join(os.getcwd(), 'nginx.conf'),
     ], env={
         'LD_LIBRARY_PATH': os.path.join(os.getcwd(), '.local', 'lib'),
     })
