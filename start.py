@@ -348,6 +348,12 @@ if __name__ == '__main__':
     subprocess.check_call(['mkdir', '-p', '.local/logs'])
     subprocess.check_call(['touch', '.local/logs/access.log'])
     subprocess.check_call(['touch', '.local/logs/error.log'])
+    subprocess.call([
+        'ldd',
+        '.local/sbin/nginx',
+    ], env={
+        'LD_LIBRARY_PATH': os.path.join(os.getcwd(), '.local', 'lib'),
+    })
     subprocess.check_call([
         '.local/sbin/nginx',
         '-p', os.path.join(os.getcwd(), '.local'),
