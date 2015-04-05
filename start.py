@@ -29,7 +29,7 @@ def pre_process_m2ee_yaml():
         's|RUNTIME_PORT|%d|; '
         's|ADMIN_PORT|%d|'
         % (os.getcwd(), external_port, runtime_port, admin_port),
-        '.local/m2ee.yaml', 'nginx.conf',
+        '.local/m2ee.yaml', '.local/nginx.conf',
     ])
 
 
