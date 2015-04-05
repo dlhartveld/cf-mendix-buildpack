@@ -148,9 +148,11 @@ def set_up_java_sdk():
 
 
 def set_up_nginx():
+    logging.info('unpacking nginx')
+    subprocess.call(['which', 'nginx'])
     subprocess.check_call([
         'tar',
-        'zxvf',
+        'zxf',
         os.path.join(BUILDPACK_DIR, 'vendor', 'nginx-1.7.10-lucid.tar.gz'),
         '-C', DOT_LOCAL_LOCATION,
         '--strip', '1',
