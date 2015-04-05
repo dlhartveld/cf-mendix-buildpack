@@ -200,7 +200,7 @@ def copy_buildpack_resources():
     )
     shutil.copy(
         os.path.join(BUILDPACK_DIR, 'nginx.conf'),
-        os.path.join(BUILD_DIR, 'nginx.conf'),
+        os.path.join(DOT_LOCAL_LOCATION, 'nginx.conf'),
     )
     shutil.copy(
         os.path.join(BUILDPACK_DIR, 'start.py'),
