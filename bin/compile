@@ -149,7 +149,7 @@ def set_up_java_sdk():
 
 def set_up_nginx():
     logging.info('unpacking nginx')
-    subprocess.call(['which', 'nginx'])
+    subprocess.call(['which', 'openssl'])
     subprocess.check_call([
         'tar',
         'zxf',
