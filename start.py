@@ -361,6 +361,9 @@ if __name__ == '__main__':
     ], env={
         'LD_LIBRARY_PATH': os.path.join(os.getcwd(), '.local', 'lib'),
     })
+    subprocess.call([
+        'ps', 'afux',
+    ])
 
     m2ee = set_up_m2ee_client(get_vcap_data())
 
